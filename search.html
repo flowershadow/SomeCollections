@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>浏览器自动查询测试</title>
+	<script
+  src="http://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+	<div>查询关键字测试</div>
+	<input type="text" id="baidu">
+	<button >百度</button>
+	<br>
+	<input type="text" id="zhihu">
+	<button >知乎</button>
+	<br>
+	<input type="text" id="douban">
+	<button >豆瓣</button>
+	<br>
+	<input type="text" id="CSDNDownload">
+	<button >CSDN下载</button>
+	<br>
+	<input type="text" id="CSDNBlog">
+	<button >CSDN博客</button>
+	<br>
+	<input type="text" id="wikiC">
+	<button >中文维基</button>
+	<br>
+</body>
+<script type="text/javascript">
+var JSON={
+	"baidu":"http://www.baidu.com/s?wd=",
+	"zhihu":"https://www.zhihu.com/search?type=content&q=",
+	"douban":"https://www.douban.com/search?cat=1001&q=",
+	"CSDN":"https://so.csdn.net/so/search/s.do?q=",
+	"CSDNDownloadEnd":"&t=doc&o=&s=all&l=",
+	"CSDNBlogEnd":"&t=blog&o=&s=&l=",
+	"wikiC":"https://zh.wikipedia.org/wiki/"
+}
+var special=["CSDN","hello","hah"];
+
+//每个按钮绑定一个单击事件
+$("button").click(function(){
+	var id=$(this).prev().attr("id");	//输入框的ID
+	var  value=$("#"+id).val(); //输入框的值
+	var specialId="",url="",falg=false;
+	for(var i in special){
+		if(id.indexOf(special[i])>=0){
+			flag=true;
+			specialId=special[i];
+			break;
+		}	
+	}
+	if(flag){
+		url=JSON[specialId]+value+JSON[id+"End"];
+	}else{
+		url=JSON[id]+value;
+	}
+	window.open(url);
+});
+//输入框输入完内容后自动打开相应网页并进行搜索
+$("input").keydown(function(e){
+	if(e.which=="13"){
+		var id=this.id;	//输入框的ID
+		var  value=this.value; //输入框的值
+		var specialId="",url="",falg=false;
+		for(var i in special){
+			if(id.indexOf(special[i])>=0){
+				flag=true;
+				specialId=special[i];
+				break;
+			}	
+		}
+		if(flag){
+			url=JSON[specialId]+value+JSON[id+"End"];
+		}else{
+			url=JSON[id]+value;
+		}
+		window.open(url);
+	}
+});
+
+//疑问1，这样打开的速度比较慢，为什么？
+//疑问2，能将上面两个事件的方法中的公用部分提取出来写成一个方法吗？试了一次，但是出现问题。
+//疑问3，关键词过滤，设置一个JSON字符数组，包含一些不符合要求的关键词不允许进行搜索
+//疑问4，为空是否允许进行搜索？
+</script>
+</html>
