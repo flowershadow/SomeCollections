@@ -45,7 +45,7 @@ var special=["CSDN","hello","hah"];
 $("button").click(function(){
 	var id=$(this).prev().attr("id");	//输入框的ID
 	var  value=$("#"+id).val(); //输入框的值
-	var specialId="",url="",falg=false;
+	var specialId="",url="",flag=false;
 	for(var i in special){
 		if(id.indexOf(special[i])>=0){
 			flag=true;
@@ -65,7 +65,7 @@ $("input").keydown(function(e){
 	if(e.which=="13"){
 		var id=this.id;	//输入框的ID
 		var  value=this.value; //输入框的值
-		var specialId="",url="",falg=false;
+		var specialId="",url="",flag=false;
 		for(var i in special){
 			if(id.indexOf(special[i])>=0){
 				flag=true;
